@@ -1,4 +1,11 @@
 /**
+ * Shared theme key for profile, cv-builder (cv-generator), and this micro frontend host.
+ * Use this same key when reading/writing theme to localStorage so all apps stay in sync.
+ * Values: 'light' | 'dark'
+ */
+const THEME_STORAGE_KEY = 'mfTheme';
+
+/**
  * List of GitHub Pages to show in the wrapper.
  * Add your real URLs here; id and label are used for the sidebar and deep linking.
  */

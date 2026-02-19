@@ -2,7 +2,9 @@
   const AUTH_STORAGE_KEY = 'mfAuth';
   const sidebarList = document.getElementById('sidebar-list');
   const authPanel = document.getElementById('auth-panel');
+  const themePanel = document.getElementById('theme-panel');
   const frame = document.getElementById('main-frame');
+  const THEME_KEY = typeof THEME_STORAGE_KEY !== 'undefined' ? THEME_STORAGE_KEY : 'mfTheme';
 
   if (!sidebarList || !frame || typeof GITHUB_PAGES === 'undefined') {
     return;
@@ -10,6 +12,55 @@
 
   const pages = GITHUB_PAGES;
   if (pages.length === 0) return;
+
+  function getTheme() {
+    try {
+      var stored = localStorage.getItem(THEME_KEY);
+      return stored === 'dark' || stored === 'light' ? stored : 'light';
+    } catch (e) {
+      return 'light';
+    }
+  }
+
+  function setTheme(value) {
+    var theme = value === 'dark' ? 'dark' : 'light';
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {}
+    applyTheme(theme);
+    sendThemeToFrame();
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  function sendThemeToFrame() {
+    if (!frame.src || frame.src === 'about:blank') return;
+    try {
+      var targetOrigin = new URL(frame.src).origin;
+      frame.contentWindow.postMessage(
+        { type: 'THEME', payload: getTheme() },
+        targetOrigin
+      );
+    } catch (e) {}
+  }
+
+  function renderThemeUI() {
+    if (!themePanel) return;
+    var theme = getTheme();
+    themePanel.innerHTML =
+      '<div class="theme-row">' +
+      '<span class="theme-label">Theme</span>' +
+      '<button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">' +
+      (theme === 'dark' ? '☀️ Light' : '🌙 Dark') +
+      '</button>' +
+      '</div>';
+    themePanel.querySelector('.theme-toggle').addEventListener('click', function () {
+      setTheme(theme === 'dark' ? 'light' : 'dark');
+      renderThemeUI();
+    });
+  }
 
   function getAuth() {
     try {
@@ -51,6 +102,7 @@
         { type: 'AUTH', payload: getAuth() },
         targetOrigin
       );
+      sendThemeToFrame();
     } catch (e) {}
   }
 
@@ -163,6 +215,8 @@
     sendAuthToFrame();
   });
 
+  applyTheme(getTheme());
+  renderThemeUI();
   renderAuthUI();
 
   pages.forEach(function (entry) {

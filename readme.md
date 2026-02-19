@@ -64,6 +64,15 @@ micro-front-end/
   - Iframe: `width: 100%; height: 100%; border: 0;` (and ensure parent has a defined height, e.g. `height: 100vh` or flex).
   - Style the active tab (e.g. background or border) so it’s clear which GitHub Page is shown.
 
+## Shared theme (profile, cv-builder, host)
+
+Theme is stored in **localStorage under one key** so profile, cv-builder (cv-generator), and the host stay in sync.
+
+- **Key**: `mfTheme` (defined as `THEME_STORAGE_KEY` in `config.js`). Use this same key in profile and cv-builder when reading/writing theme.
+- **Values**: `'light'` | `'dark'`.
+- **Host**: On load the shell reads `localStorage.getItem('mfTheme')`, applies `data-theme` on `<html>`, and shows a theme toggle. When the iframe loads, the host sends `postMessage({ type: 'THEME', payload: 'light'|'dark' })` so the embedded app can apply the theme.
+- **Profile / cv-builder**: On load, read theme from `localStorage.getItem('mfTheme')` and set `document.documentElement.setAttribute('data-theme', value)`. Listen for `message` events with `event.data.type === 'THEME'` and apply `event.data.payload`. When saving theme in your app, use `localStorage.setItem('mfTheme', 'light'|'dark')` so the host and other apps stay in sync. You can use `theme-helper.js` as a drop-in script.
+
 ## Optional enhancements
 
 - **Deep linking**: Use `?page=id` in the wrapper URL; on load, read query string and load the matching GitHub Page and set active tab.

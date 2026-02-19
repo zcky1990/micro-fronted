@@ -10,6 +10,21 @@ body {
   height: 100%;
 }
 
+/* Shared theme: use same key (mfTheme) in profile, cv-builder, and host */
+html[data-theme="light"] .sidebar {
+  background: #24292f;
+  color: #e6edf3;
+}
+
+html[data-theme="dark"] .sidebar {
+  background: #0d1117;
+  color: #e6edf3;
+}
+
+html[data-theme="dark"] .sidebar button.active {
+  border-left-color: #58a6ff;
+}
+
 .layout {
   display: flex;
   height: 100vh;
@@ -111,6 +126,38 @@ body {
   font-size: 0.75rem;
   color: rgba(230, 237, 243, 0.7);
   font-weight: normal;
+}
+
+.theme-panel {
+  padding: 0 1rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.theme-label {
+  font-size: 0.85rem;
+  color: inherit;
+}
+
+.theme-toggle {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .sidebar ul {
