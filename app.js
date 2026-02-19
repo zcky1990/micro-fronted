@@ -32,8 +32,16 @@
   }
 
   function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    var isDark = theme === 'dark';
+    var html = document.documentElement;
+    html.setAttribute('data-theme', theme);
+    if (isDark) {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+    // Force browser to recalculate styles so CSS variables update immediately
+    void document.body.offsetHeight;
   }
 
   function sendThemeToFrame() {

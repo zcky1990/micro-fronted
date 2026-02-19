@@ -30,8 +30,9 @@
   --sidebar-border: 240 5.9% 90%;
 }
 
-/* shadcn-style – dark */
-.dark {
+/* shadcn-style – dark (use data-theme so UI updates immediately when theme changes) */
+html[data-theme="dark"],
+html.dark {
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
   --card: 240 10% 3.9%;
