@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro Frontend Wrapper</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="layout">
+    <nav class="sidebar" aria-label="Apps">
+      <div id="auth-panel" class="auth-panel"></div>
+      <ul id="sidebar-list"></ul>
+    </nav>
+    <main class="main">
+      <iframe
+        id="main-frame"
+        title="Embedded GitHub Page"
+        src="about:blank"
+      ></iframe>
+    </main>
+  </div>
+  <script src="env.js"></script>
+  <script src="config.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="app.js"></script>
+</body>
+</html>
