@@ -3,7 +3,7 @@
  * Use this same key when reading/writing theme to localStorage so all apps stay in sync.
  * Values: 'light' | 'dark'
  */
-const THEME_STORAGE_KEY = 'mfTheme';
+const THEME_STORAGE_KEY = 'theme';
 
 /**
  * List of GitHub Pages to show in the wrapper.

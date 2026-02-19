@@ -4,7 +4,7 @@
   const authPanel = document.getElementById('auth-panel');
   const themePanel = document.getElementById('theme-panel');
   const frame = document.getElementById('main-frame');
-  const THEME_KEY = typeof THEME_STORAGE_KEY !== 'undefined' ? THEME_STORAGE_KEY : 'mfTheme';
+  const THEME_KEY = typeof THEME_STORAGE_KEY !== 'undefined' ? THEME_STORAGE_KEY : 'theme';
 
   if (!sidebarList || !frame || typeof GITHUB_PAGES === 'undefined') {
     return;
