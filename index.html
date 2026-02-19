@@ -4,20 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Micro Frontend Wrapper</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            border: 'hsl(var(--border))',
+            input: 'hsl(var(--input))',
+            ring: 'hsl(var(--ring))',
+            background: 'hsl(var(--background))',
+            foreground: 'hsl(var(--foreground))',
+            primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+            secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+            destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
+            muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+            accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+            card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+            sidebar: { DEFAULT: 'hsl(var(--sidebar))', foreground: 'hsl(var(--sidebar-foreground))', border: 'hsl(var(--sidebar-border))' },
+          },
+        },
+      },
+    }
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="layout">
-    <nav class="sidebar" aria-label="Apps">
-      <div id="theme-panel" class="theme-panel"></div>
-      <div id="auth-panel" class="auth-panel"></div>
-      <ul id="sidebar-list"></ul>
+<body class="min-h-screen bg-background text-foreground antialiased">
+  <div class="flex h-screen min-h-full">
+    <nav class="flex w-52 min-w-[13rem] flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground" aria-label="Apps">
+      <div id="theme-panel" class="border-b border-sidebar-border px-4 py-3"></div>
+      <div id="auth-panel" class="border-b border-sidebar-border px-4 py-3"></div>
+      <ul id="sidebar-list" class="min-h-0 flex-1 list-none p-0"></ul>
     </nav>
-    <main class="main">
+    <main class="min-w-0 flex-1 flex flex-col">
       <iframe
         id="main-frame"
         title="Embedded GitHub Page"
         src="about:blank"
+        class="h-full w-full min-h-0 flex-1 border-0"
       ></iframe>
     </main>
   </div>

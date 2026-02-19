@@ -33,6 +33,7 @@
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }
 
   function sendThemeToFrame() {
@@ -50,13 +51,13 @@
     if (!themePanel) return;
     var theme = getTheme();
     themePanel.innerHTML =
-      '<div class="theme-row">' +
-      '<span class="theme-label">Theme</span>' +
-      '<button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle theme">' +
+      '<div class="flex items-center justify-between gap-2">' +
+      '<span class="text-sm font-medium">Theme</span>' +
+      '<button type="button" class="inline-flex h-8 items-center justify-center rounded-md border border-input bg-secondary px-3 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" title="Toggle theme" aria-label="Toggle theme">' +
       (theme === 'dark' ? '☀️ Light' : '🌙 Dark') +
       '</button>' +
       '</div>';
-    themePanel.querySelector('.theme-toggle').addEventListener('click', function () {
+    themePanel.querySelector('button').addEventListener('click', function () {
       setTheme(theme === 'dark' ? 'light' : 'dark');
       renderThemeUI();
     });
@@ -157,24 +158,26 @@
     var auth = getAuth();
     if (auth) {
       authPanel.innerHTML =
-        '<div class="auth-logged-in">' +
-        '<strong>Logged in as</strong> ' +
+        '<div class="mb-2 text-sm">' +
+        '<strong class="block text-xs font-medium text-muted-foreground">Logged in as</strong> ' +
         escapeHtml(auth.user) +
-        (auth.provider === 'google' ? ' <span class="auth-provider">(Google)</span>' : '') +
+        (auth.provider === 'google' ? ' <span class="text-xs text-muted-foreground">(Google)</span>' : '') +
         '</div>' +
-        '<button type="button" class="auth-logout">Log out</button>';
-      authPanel.querySelector('.auth-logout').addEventListener('click', clearAuth);
+        '<button type="button" class="inline-flex h-8 w-full items-center justify-center rounded-md border border-border bg-destructive/10 px-3 text-sm font-medium text-destructive shadow-sm transition-colors hover:bg-destructive/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log out</button>';
+      authPanel.querySelector('button').addEventListener('click', clearAuth);
     } else {
       authPanel.innerHTML =
-        '<form class="auth-form" id="auth-form">' +
-        '<label for="auth-user">Username</label>' +
-        '<input type="text" id="auth-user" name="user" placeholder="Username" required autocomplete="username">' +
-        '<label for="auth-password">Password</label>' +
-        '<input type="password" id="auth-password" name="password" placeholder="Password" autocomplete="current-password">' +
-        '<button type="submit" class="auth-login">Log in</button>' +
+        '<form id="auth-form" class="space-y-3">' +
+        '<div><label for="auth-user" class="mb-1 block text-xs font-medium text-muted-foreground">Username</label>' +
+        '<input type="text" id="auth-user" name="user" placeholder="Username" required autocomplete="username" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
+        '</div>' +
+        '<div><label for="auth-password" class="mb-1 block text-xs font-medium text-muted-foreground">Password</label>' +
+        '<input type="password" id="auth-password" name="password" placeholder="Password" autocomplete="current-password" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
+        '</div>' +
+        '<button type="submit" class="inline-flex h-8 w-full items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log in</button>' +
         '</form>' +
         (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID
-          ? '<div class="auth-divider">or</div><div id="google-button-container" class="google-button-container"></div>'
+          ? '<p class="my-2 text-center text-xs text-muted-foreground">or</p><div id="google-button-container" class="google-button-container"></div>'
           : '');
       authPanel.querySelector('#auth-form').addEventListener('submit', function (e) {
         e.preventDefault();

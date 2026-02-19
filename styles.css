@@ -1,237 +1,110 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 }
 
-html,
-body {
-  margin: 0;
-  height: 100%;
+/* shadcn-style CSS variables – light */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-border: 240 5.9% 90%;
 }
 
-/* Shared theme: use same key (mfTheme) in profile, cv-builder, and host */
-html[data-theme="light"] .sidebar {
-  background: #24292f;
-  color: #e6edf3;
+/* shadcn-style – dark */
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  --sidebar: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.9% 83.9%;
+  --sidebar-border: 240 3.7% 15.9%;
 }
 
-html[data-theme="dark"] .sidebar {
-  background: #0d1117;
-  color: #e6edf3;
-}
-
-html[data-theme="dark"] .sidebar button.active {
-  border-left-color: #58a6ff;
-}
-
-.layout {
-  display: flex;
-  height: 100vh;
-  min-height: 100%;
-}
-
-.sidebar {
-  width: 200px;
-  min-width: 200px;
-  background: #24292f;
-  color: #e6edf3;
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.auth-panel {
-  padding: 0 1rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 0.5rem;
-}
-
-.auth-panel .auth-logged-in {
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-}
-
-.auth-panel .auth-logged-in strong {
+/* Sidebar nav buttons – shadcn list style */
+#sidebar-list button {
   display: block;
-  margin-bottom: 0.25rem;
-}
-
-.auth-panel button.auth-logout {
   width: 100%;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
-  background: rgba(248, 81, 73, 0.2);
-  color: #f85149;
-  border: 1px solid rgba(248, 81, 73, 0.4);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-panel button.auth-logout:hover {
-  background: rgba(248, 81, 73, 0.3);
-}
-
-.auth-panel .auth-form label {
-  display: block;
-  font-size: 0.8rem;
-  margin-bottom: 0.25rem;
-  color: rgba(230, 237, 243, 0.9);
-}
-
-.auth-panel .auth-form input {
-  width: 100%;
-  padding: 0.4rem 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  color: inherit;
-}
-
-.auth-panel .auth-form input::placeholder {
-  color: rgba(230, 237, 243, 0.5);
-}
-
-.auth-panel .auth-form button.auth-login {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 0.85rem;
-  background: #238636;
-  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-panel .auth-form button.auth-login:hover {
-  background: #2ea043;
-}
-
-.auth-panel .auth-divider {
-  text-align: center;
-  font-size: 0.8rem;
-  color: rgba(230, 237, 243, 0.6);
-  margin: 0.75rem 0;
-}
-
-.auth-panel .google-button-container {
-  display: flex;
-  justify-content: center;
-  min-height: 40px;
-}
-
-.auth-panel .auth-provider {
-  font-size: 0.75rem;
-  color: rgba(230, 237, 243, 0.7);
-  font-weight: normal;
-}
-
-.theme-panel {
-  padding: 0 1rem 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 0.5rem;
-}
-
-.theme-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.theme-label {
-  font-size: 0.85rem;
-  color: inherit;
-}
-
-.theme-toggle {
-  padding: 0.35rem 0.6rem;
-  font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-  min-height: 0;
-}
-
-.sidebar li {
-  margin: 0;
-}
-
-.sidebar button {
-  display: block;
-  width: 100%;
-  padding: 0.6rem 1rem;
-  border: none;
+  border-radius: 0.375rem;
   background: transparent;
   color: inherit;
-  font: inherit;
-  text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background-color 0.15s, color 0.15s;
 }
-
-.sidebar button:hover {
-  background: rgba(255, 255, 255, 0.08);
+#sidebar-list button:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
 }
-
-.sidebar button.active {
-  background: rgba(255, 255, 255, 0.12);
+#sidebar-list button.active {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
   font-weight: 600;
-  border-left: 3px solid #58a6ff;
+  border-left: 2px solid hsl(var(--primary));
 }
 
-.main {
-  flex: 1;
-  min-width: 0;
+/* Google button container */
+.google-button-container {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
+  justify-content: center;
+  min-height: 2.5rem;
 }
 
-.main iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  flex: 1;
-  min-height: 0;
-}
-
+/* Mobile sidebar */
 @media (max-width: 640px) {
-  .sidebar {
+  nav[aria-label="Apps"] {
     position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 100;
+    inset: 0 auto 0 0;
+    z-index: 50;
     transform: translateX(-100%);
     transition: transform 0.2s ease;
   }
-
-  .sidebar.open {
+  nav[aria-label="Apps"].open {
     transform: translateX(0);
   }
-
-  .main::before {
+  main::before {
     content: '';
     display: block;
+    height: 3rem;
     width: 100%;
-    height: 48px;
-    background: #24292f;
     flex-shrink: 0;
+    background: hsl(var(--sidebar));
   }
 }
