@@ -78,7 +78,6 @@ html.dark {
   background: hsl(var(--accent));
   color: hsl(var(--accent-foreground));
   font-weight: 600;
-  border-left: 2px solid hsl(var(--primary));
 }
 
 /* Google button container */

@@ -1,7 +1,7 @@
 (function () {
   const AUTH_STORAGE_KEY = 'mfAuth';
   const sidebarList = document.getElementById('sidebar-list');
-  const authPanel = document.getElementById('auth-panel');
+  // const authPanel = document.getElementById('auth-panel');
   const themePanel = document.getElementById('theme-panel');
   const frame = document.getElementById('main-frame');
   const THEME_KEY = typeof THEME_STORAGE_KEY !== 'undefined' ? THEME_STORAGE_KEY : 'theme';
@@ -161,43 +161,43 @@
     }, 100);
   }
 
-  function renderAuthUI() {
-    if (!authPanel) return;
-    var auth = getAuth();
-    if (auth) {
-      authPanel.innerHTML =
-        '<div class="mb-2 text-sm">' +
-        '<strong class="block text-xs font-medium text-muted-foreground">Logged in as</strong> ' +
-        escapeHtml(auth.user) +
-        (auth.provider === 'google' ? ' <span class="text-xs text-muted-foreground">(Google)</span>' : '') +
-        '</div>' +
-        '<button type="button" class="inline-flex h-8 w-full items-center justify-center rounded-md border border-border bg-destructive/10 px-3 text-sm font-medium text-destructive shadow-sm transition-colors hover:bg-destructive/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log out</button>';
-      authPanel.querySelector('button').addEventListener('click', clearAuth);
-    } else {
-      authPanel.innerHTML =
-        '<form id="auth-form" class="space-y-3">' +
-        '<div><label for="auth-user" class="mb-1 block text-xs font-medium text-muted-foreground">Username</label>' +
-        '<input type="text" id="auth-user" name="user" placeholder="Username" required autocomplete="username" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
-        '</div>' +
-        '<div><label for="auth-password" class="mb-1 block text-xs font-medium text-muted-foreground">Password</label>' +
-        '<input type="password" id="auth-password" name="password" placeholder="Password" autocomplete="current-password" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
-        '</div>' +
-        '<button type="submit" class="inline-flex h-8 w-full items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log in</button>' +
-        '</form>' +
-        (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID
-          ? '<p class="my-2 text-center text-xs text-muted-foreground">or</p><div id="google-button-container" class="google-button-container"></div>'
-          : '');
-      authPanel.querySelector('#auth-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        var user = document.getElementById('auth-user').value.trim();
-        var password = document.getElementById('auth-password').value;
-        if (user) setAuth(user, password || '', 'form');
-      });
-      if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
-        whenGoogleReady(renderGoogleButton);
-      }
-    }
-  }
+  // function renderAuthUI() {
+  //   if (!authPanel) return;
+  //   var auth = getAuth();
+  //   if (auth) {
+  //     authPanel.innerHTML =
+  //       '<div class="mb-2 text-sm">' +
+  //       '<strong class="block text-xs font-medium text-muted-foreground">Logged in as</strong> ' +
+  //       escapeHtml(auth.user) +
+  //       (auth.provider === 'google' ? ' <span class="text-xs text-muted-foreground">(Google)</span>' : '') +
+  //       '</div>' +
+  //       '<button type="button" class="inline-flex h-8 w-full items-center justify-center rounded-md border border-border bg-destructive/10 px-3 text-sm font-medium text-destructive shadow-sm transition-colors hover:bg-destructive/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log out</button>';
+  //     authPanel.querySelector('button').addEventListener('click', clearAuth);
+  //   } else {
+  //     authPanel.innerHTML =
+  //       '<form id="auth-form" class="space-y-3">' +
+  //       '<div><label for="auth-user" class="mb-1 block text-xs font-medium text-muted-foreground">Username</label>' +
+  //       '<input type="text" id="auth-user" name="user" placeholder="Username" required autocomplete="username" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
+  //       '</div>' +
+  //       '<div><label for="auth-password" class="mb-1 block text-xs font-medium text-muted-foreground">Password</label>' +
+  //       '<input type="password" id="auth-password" name="password" placeholder="Password" autocomplete="current-password" class="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">' +
+  //       '</div>' +
+  //       '<button type="submit" class="inline-flex h-8 w-full items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">Log in</button>' +
+  //       '</form>' +
+  //       (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID
+  //         ? '<p class="my-2 text-center text-xs text-muted-foreground">or</p><div id="google-button-container" class="google-button-container"></div>'
+  //         : '');
+  //     authPanel.querySelector('#auth-form').addEventListener('submit', function (e) {
+  //       e.preventDefault();
+  //       var user = document.getElementById('auth-user').value.trim();
+  //       var password = document.getElementById('auth-password').value;
+  //       if (user) setAuth(user, password || '', 'form');
+  //     });
+  //     if (typeof GOOGLE_CLIENT_ID !== 'undefined' && GOOGLE_CLIENT_ID) {
+  //       whenGoogleReady(renderGoogleButton);
+  //     }
+  //   }
+  // }
 
   function escapeHtml(s) {
     var div = document.createElement('div');
@@ -228,7 +228,7 @@
 
   applyTheme(getTheme());
   renderThemeUI();
-  renderAuthUI();
+  // renderAuthUI();
 
   pages.forEach(function (entry) {
     var li = document.createElement('li');
