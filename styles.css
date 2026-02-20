@@ -104,6 +104,7 @@ html.dark {
   #sidebar-nav.open {
     transform: translateX(0);
     box-shadow: 0.25rem 0 1rem rgba(0, 0, 0, 0.15);
+    z-index: 60;
   }
   #sidebar-overlay.overlay-visible {
     opacity: 1;
