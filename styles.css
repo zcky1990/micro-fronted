@@ -89,15 +89,25 @@ html.dark {
 
 /* Mobile sidebar */
 @media (max-width: 640px) {
-  nav[aria-label="Apps"] {
+  #sidebar-nav {
     position: fixed;
-    inset: 0 auto 0 0;
+    top: 3rem;
+    left: 0;
+    bottom: 0;
+    width: 13rem;
+    max-width: 85vw;
     z-index: 50;
     transform: translateX(-100%);
     transition: transform 0.2s ease;
+    box-shadow: none;
   }
-  nav[aria-label="Apps"].open {
+  #sidebar-nav.open {
     transform: translateX(0);
+    box-shadow: 0.25rem 0 1rem rgba(0, 0, 0, 0.15);
+  }
+  #sidebar-overlay.overlay-visible {
+    opacity: 1;
+    pointer-events: auto;
   }
   main::before {
     content: '';

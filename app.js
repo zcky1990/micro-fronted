@@ -1,6 +1,9 @@
 (function () {
   const AUTH_STORAGE_KEY = 'mfAuth';
   const sidebarList = document.getElementById('sidebar-list');
+  const sidebarNav = document.getElementById('sidebar-nav');
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
   // const authPanel = document.getElementById('auth-panel');
   const themePanel = document.getElementById('theme-panel');
   const frame = document.getElementById('main-frame');
@@ -8,6 +11,42 @@
 
   if (!sidebarList || !frame || typeof GITHUB_PAGES === 'undefined') {
     return;
+  }
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 640px)').matches;
+  }
+
+  function openSidebar() {
+    if (!sidebarNav || !sidebarOverlay) return;
+    sidebarNav.classList.add('open');
+    sidebarOverlay.classList.add('overlay-visible');
+    if (sidebarToggle) {
+      sidebarToggle.setAttribute('aria-label', 'Close menu');
+      sidebarToggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  function closeSidebar() {
+    if (!sidebarNav || !sidebarOverlay) return;
+    sidebarNav.classList.remove('open');
+    sidebarOverlay.classList.remove('overlay-visible');
+    if (sidebarToggle) {
+      sidebarToggle.setAttribute('aria-label', 'Open menu');
+      sidebarToggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  function toggleSidebar() {
+    if (sidebarNav && sidebarNav.classList.contains('open')) closeSidebar();
+    else openSidebar();
+  }
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', toggleSidebar);
+  }
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', closeSidebar);
   }
 
   const pages = GITHUB_PAGES;
@@ -219,6 +258,7 @@
       var newUrl = new URL(window.location);
       newUrl.searchParams.set('page', entry.id);
       window.history.replaceState({}, '', newUrl);
+      if (isMobile()) closeSidebar();
     }
   }
 
